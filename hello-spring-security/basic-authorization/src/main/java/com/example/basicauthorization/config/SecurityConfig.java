@@ -22,7 +22,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
             .httpBasic(basic -> basic.realmName("LUNA")
                 .authenticationEntryPoint(new CustomEntryPoint()))
-            .formLogin(Customizer.withDefaults())
+            .formLogin(form -> form.defaultSuccessUrl("/home", true))
             .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
 //            .authenticationProvider(authenticationProvider);
 
