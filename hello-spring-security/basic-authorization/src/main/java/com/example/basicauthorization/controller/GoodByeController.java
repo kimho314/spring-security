@@ -1,7 +1,12 @@
 package com.example.basicauthorization.controller;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.security.concurrent.DelegatingSecurityContextCallable;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,4 +27,23 @@ public class GoodByeController {
         // 해당 전략을 설정하면 요청의 원래 스레드에 있는 세부 정보를 비동기 메서드의 새로 생성된 스레드로 복사함
         log.info("name: " + name);
     }
+
+    @GetMapping("/ciao")
+    public String ciao(){
+        Callable<String> task = () -> {
+            SecurityContext context = SecurityContextHolder.getContext();
+            return context.getAuthentication().getName();
+        };
+
+
+        try(ExecutorService executorService = Executors.newCachedThreadPool()){
+            DelegatingSecurityContextCallable<String> contextTask = new DelegatingSecurityContextCallable<>(task);
+            String name = executorService.submit(contextTask).get();
+            log.info("name: " + name);
+            return "ciao, " + name + "!";
+        } catch (ExecutionException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
