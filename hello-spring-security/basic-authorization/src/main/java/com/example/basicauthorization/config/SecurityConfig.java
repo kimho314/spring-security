@@ -20,7 +20,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-            .httpBasic(Customizer.withDefaults())
+            .httpBasic(basic -> basic.realmName("LUNA")
+                .authenticationEntryPoint(new CustomEntryPoint()))
             .formLogin(Customizer.withDefaults())
             .authorizeHttpRequests(authorize -> authorize.anyRequest().authenticated());
 //            .authenticationProvider(authenticationProvider);
