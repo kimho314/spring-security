@@ -6,9 +6,8 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
-@Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
@@ -18,7 +17,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if ("kim".equals(username) &&
             "12345".equals(password)) {
-            return new UsernamePasswordAuthenticationToken(username, password, Arrays.asList());
+            return new UsernamePasswordAuthenticationToken(username, password, Arrays.asList(new SimpleGrantedAuthority("read")));
         } else {
             throw new AuthenticationCredentialsNotFoundException("Error");
         }
