@@ -1,2 +1,3 @@
 rootProject.name = 'hello-spring-security'
 include 'basic-authorization'
+include 'simple-form-login'
