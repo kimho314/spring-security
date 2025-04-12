@@ -12,3 +12,11 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+jar {
+    enabled = true
+}
+
+bootJar {
+    enabled = true
+}

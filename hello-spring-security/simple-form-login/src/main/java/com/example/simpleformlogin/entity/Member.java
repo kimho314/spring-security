@@ -42,6 +42,7 @@ public class Member {
     @Enumerated(EnumType.STRING)
     private Algorithm algorithm;
 
+    @Builder.Default
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "member")
     private List<Authority> authorities = new ArrayList<>();
 }
