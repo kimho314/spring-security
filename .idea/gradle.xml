@@ -10,6 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$/hello-spring-security" />
             <option value="$PROJECT_DIR$/hello-spring-security/basic-authorization" />
+            <option value="$PROJECT_DIR$/hello-spring-security/login-with-authorities" />
             <option value="$PROJECT_DIR$/hello-spring-security/simple-form-login" />
           </set>
         </option>
