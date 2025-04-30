@@ -9,6 +9,7 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.springframework.boot/spring-boot-configuration-processor/3.4.4/5103fbb3f4591f75c47be2f325a1d19a9dcf5804/spring-boot-configuration-processor-3.4.4.jar" />
         </processorPath>
         <module name="hello-spring-security.basic-authorization.main" />
+        <module name="hello-spring-security.simple-form-login.main" />
       </profile>
       <profile name="Gradle Imported" enabled="true">
         <outputRelativeToContentRoot value="true" />
@@ -16,7 +17,21 @@
           <entry name="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.projectlombok/lombok/1.18.36/5a30490a6e14977d97d9c73c924c1f1b5311ea95/lombok-1.18.36.jar" />
         </processorPath>
         <module name="hello-spring-security.basic-authorization.test" />
+        <module name="hello-spring-security.simple-form-login.test" />
       </profile>
     </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="hello-spring-security" options="-parameters" />
+      <module name="hello-spring-security.basic-authorization" options="-parameters" />
+      <module name="hello-spring-security.basic-authorization.main" options="-parameters" />
+      <module name="hello-spring-security.basic-authorization.test" options="-parameters" />
+      <module name="hello-spring-security.main" options="-parameters" />
+      <module name="hello-spring-security.simple-form-login" options="-parameters" />
+      <module name="hello-spring-security.simple-form-login.main" options="-parameters" />
+      <module name="hello-spring-security.simple-form-login.test" options="-parameters" />
+      <module name="hello-spring-security.test" options="-parameters" />
+    </option>
   </component>
 </project>
