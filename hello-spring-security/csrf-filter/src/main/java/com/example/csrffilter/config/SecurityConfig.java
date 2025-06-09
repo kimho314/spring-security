@@ -24,6 +24,7 @@ public class SecurityConfig {
             .addFilterAfter(
                 new CsrfTokenLogger(),
                 CsrfFilter.class)
+            .csrf(csrf -> csrf.ignoringRequestMatchers("/non-csrf"))
             .formLogin(form -> form.loginPage("/login").permitAll()
                 .defaultSuccessUrl("/main", true)
             )

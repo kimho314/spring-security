@@ -16,4 +16,14 @@ public class HelloController {
     public String postHello() {
         return "Post Hello";
     }
+
+    @PostMapping("/non-csrf")
+    public String nonCsrf() {
+        return "non-csrf";
+    }
+
+    @PostMapping("/csrf")
+    public String csrf() {
+        return "csrf";
+    }
 }
