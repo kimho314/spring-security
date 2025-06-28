@@ -3,16 +3,15 @@ package com.example.basicjwtauthserver.domain;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "otp")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class Otp {
 
     @Id
@@ -22,8 +21,12 @@ public class Otp {
     @Column(length = 45)
     private String code;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "username")
-    private Member member;
+    public Otp(String username, String code) {
+        this.username = username;
+        this.code = code;
+    }
+
+    public void updateCode(String code) {
+        this.code = code;
+    }
 }
