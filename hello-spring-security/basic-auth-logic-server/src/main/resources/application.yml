@@ -3,3 +3,11 @@ spring:
     name: basic-auth-logic-server
 server:
   port: 8081
+
+auth:
+  server:
+    base:
+      uri: http://localhost:8080
+jwt:
+  signing:
+    key: ymLTU8rq83..
