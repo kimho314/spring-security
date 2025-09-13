@@ -1,0 +1,10 @@
+spring:
+    application:
+        name: spring-oauth2-auth-server
+
+server:
+    port: 9000
+
+logging:
+    level:
+        org.springframework.security: trace
