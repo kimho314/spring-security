@@ -111,7 +111,15 @@ public class SecurityConfig {
                 .clientSettings(ClientSettings.builder().requireAuthorizationConsent(true).build())
                 .build();
 
-        return new InMemoryRegisteredClientRepository(oidcClient);
+        RegisteredClient credentialClient = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("credential-client")
+                .clientSecret("{noop}secret2")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope("custom") // defines a purpose for the request of an access token
+                .build();
+
+        return new InMemoryRegisteredClientRepository(oidcClient, credentialClient);
     }
 
     // an instance of JWKSource for signing access tokens
