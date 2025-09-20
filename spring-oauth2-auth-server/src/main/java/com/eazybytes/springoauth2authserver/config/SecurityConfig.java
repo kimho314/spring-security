@@ -28,6 +28,8 @@ import org.springframework.security.oauth2.server.authorization.config.annotatio
 import org.springframework.security.oauth2.server.authorization.config.annotation.web.configurers.OAuth2AuthorizationServerConfigurer;
 import org.springframework.security.oauth2.server.authorization.settings.AuthorizationServerSettings;
 import org.springframework.security.oauth2.server.authorization.settings.ClientSettings;
+import org.springframework.security.oauth2.server.authorization.settings.OAuth2TokenFormat;
+import org.springframework.security.oauth2.server.authorization.settings.TokenSettings;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
@@ -37,6 +39,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.time.Duration;
 import java.util.UUID;
 
 @Configuration
@@ -119,7 +122,19 @@ public class SecurityConfig {
                 .scope("custom") // defines a purpose for the request of an access token
                 .build();
 
-        return new InMemoryRegisteredClientRepository(oidcClient, credentialClient);
+        RegisteredClient credentialClient2 = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("credential-client2")
+                .clientSecret("{noop}secret3")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .tokenSettings(TokenSettings.builder()
+                        .accessTokenFormat(OAuth2TokenFormat.REFERENCE) // configuring the client to use opaque access tokens
+                        .accessTokenTimeToLive(Duration.ofMinutes(30)) // setting 30 minutes as the access token time to live
+                        .build())
+                .scope("custom") // defines a purpose for the request of an access token
+                .build();
+
+        return new InMemoryRegisteredClientRepository(oidcClient, credentialClient, credentialClient2);
     }
 
     // an instance of JWKSource for signing access tokens
