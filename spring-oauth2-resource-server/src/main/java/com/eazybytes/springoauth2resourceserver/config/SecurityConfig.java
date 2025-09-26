@@ -13,11 +13,18 @@ public class SecurityConfig {
     @Value(value = "${keySetUri}")
     private String keySetUri;
 
+    private final JwtAuthenticationConverter converter;
+
+    public SecurityConfig(JwtAuthenticationConverter authenticationConverter) {
+        this.converter = authenticationConverter;
+    }
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.oauth2ResourceServer(
                 c -> c.jwt(
-                        j -> j.jwkSetUri(keySetUri) // configuring the public key set URI
+                        j -> j.jwkSetUri(keySetUri)// configuring the public key set URI
+                                .jwtAuthenticationConverter(converter)
                 )
         );
 
