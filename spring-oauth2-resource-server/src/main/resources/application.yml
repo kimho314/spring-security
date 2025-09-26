@@ -3,3 +3,5 @@ spring:
         name: spring-oauth2-resource-server
 server:
     port: 8080
+
+keySetUri: http://localhost:9000/oauth2/jwks
