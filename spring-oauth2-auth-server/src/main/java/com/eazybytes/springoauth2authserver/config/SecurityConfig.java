@@ -138,7 +138,20 @@ public class SecurityConfig {
                 .scope("custom") // defines a purpose for the request of an access token
                 .build();
 
-        return new InMemoryRegisteredClientRepository(oidcClient, credentialClient, credentialClient2);
+        // register a resource server as a client
+        RegisteredClient resourceServer = RegisteredClient.withId(UUID.randomUUID().toString())
+                .clientId("resource_server")
+                .clientSecret("resource_server_secret")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .build();
+
+        return new InMemoryRegisteredClientRepository(
+                oidcClient,
+                credentialClient,
+                credentialClient2,
+                resourceServer
+        );
     }
 
     // an instance of JWKSource for signing access tokens
