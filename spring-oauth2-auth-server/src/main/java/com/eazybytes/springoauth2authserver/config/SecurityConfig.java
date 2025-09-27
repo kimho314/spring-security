@@ -141,9 +141,10 @@ public class SecurityConfig {
         // register a resource server as a client
         RegisteredClient resourceServer = RegisteredClient.withId(UUID.randomUUID().toString())
                 .clientId("resource_server")
-                .clientSecret("resource_server_secret")
+                .clientSecret("{noop}resource_server_secret")
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope("READ")
                 .build();
 
         return new InMemoryRegisteredClientRepository(
