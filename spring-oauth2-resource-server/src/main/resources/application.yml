@@ -5,3 +5,7 @@ server:
     port: 8080
 
 keySetUri: http://localhost:9000/oauth2/jwks
+introspectionUri: http://localhost:9000/oauth2/introspect
+resourceserver:
+    clientID: resource_server
+    secret: resource_server_secret

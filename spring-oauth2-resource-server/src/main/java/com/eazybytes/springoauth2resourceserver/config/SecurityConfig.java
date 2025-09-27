@@ -13,6 +13,13 @@ public class SecurityConfig {
     @Value(value = "${keySetUri}")
     private String keySetUri;
 
+    @Value("${introspectionUri}")
+    private String introspectionUri;
+    @Value("${resourceserver.clientID}")
+    private String resourceServerClientID;
+    @Value("${resourceserver.secret}")
+    private String resourceServerSecret;
+
     private final JwtAuthenticationConverter converter;
 
     public SecurityConfig(JwtAuthenticationConverter authenticationConverter) {
@@ -21,12 +28,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.oauth2ResourceServer(
-                c -> c.jwt(
-                        j -> j.jwkSetUri(keySetUri)// configuring the public key set URI
-                                .jwtAuthenticationConverter(converter)
-                )
-        );
+//        http.oauth2ResourceServer(
+//                c -> c.jwt(j -> j.jwkSetUri(keySetUri)// configuring the public key set URI
+//                                .jwtAuthenticationConverter(converter))
+//        );
+
+        // configuring the credentials the resource server must use to authenticate when calling the authorization server’s introspection URI
+        http.oauth2ResourceServer(c -> c.opaqueToken(o -> o.introspectionUri(introspectionUri)
+                .introspectionClientCredentials(resourceServerClientID, resourceServerSecret)));
 
         http.authorizeHttpRequests(
                 c -> c.anyRequest().authenticated()
