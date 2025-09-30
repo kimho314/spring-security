@@ -1,0 +1,6 @@
+spring:
+    application:
+        name: spring-oauth2-client-server
+
+server:
+    port: 8083
