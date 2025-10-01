@@ -147,11 +147,23 @@ public class SecurityConfig {
                 .scope("READ")
                 .build();
 
+        RegisteredClient registeredClient = RegisteredClient
+                .withId(UUID.randomUUID().toString())
+                .clientId("client")
+                .clientSecret("{noop}secret4")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .redirectUri(
+                        "http://localhost:8083/login/oauth2/code/my_authorization_server")
+                .scope(OidcScopes.OPENID)
+                .build();
+
         return new InMemoryRegisteredClientRepository(
                 oidcClient,
                 credentialClient,
                 credentialClient2,
-                resourceServer
+                resourceServer,
+                registeredClient
         );
     }
 
