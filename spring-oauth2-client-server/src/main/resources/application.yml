@@ -8,6 +8,9 @@ spring:
               google:
                 client-id: 910420895131-doog22k8j8pt435jji81vkj6851hc6l8.apps.googleusercontent.com
                 client-secret: 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
+              github:
+                client-id: Iv23lidFmumf9tcRneDw
+                client-secret: 173f1f07b8fb8c9f81012f91cace88b5563a06ce
 
 server:
     port: 8083
