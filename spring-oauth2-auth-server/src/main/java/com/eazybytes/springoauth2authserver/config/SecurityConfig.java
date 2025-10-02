@@ -158,12 +158,22 @@ public class SecurityConfig {
                 .scope(OidcScopes.OPENID)
                 .build();
 
+        RegisteredClient registeredClient2 = RegisteredClient
+                .withId(UUID.randomUUID().toString())
+                .clientId("client2")
+                .clientSecret("{noop}secret5")
+                .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
+                .scope(OidcScopes.OPENID)
+                .build();
+
         return new InMemoryRegisteredClientRepository(
                 oidcClient,
                 credentialClient,
                 credentialClient2,
                 resourceServer,
-                registeredClient
+                registeredClient,
+                registeredClient2
         );
     }
 
