@@ -11,6 +11,18 @@ spring:
               github:
                 client-id: Iv23lidFmumf9tcRneDw
                 client-secret: 173f1f07b8fb8c9f81012f91cace88b5563a06ce
+              my_authorization_server:
+                  client-id: client
+                  client-secret: secret4
+                  client-name: hoseopi
+                  provider: my_authorization_server
+                  client-authentication-method: client_secret_basic
+                  redirect-uri: http://localhost:8083/login/oauth2/code/my_authorization_server
+                  scope[0]: openid
+            provider:
+                my_authorization_server:
+                    issuer-uri: http://127.0.0.1:9000
+
 
 server:
     port: 8083
