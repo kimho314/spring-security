@@ -7,7 +7,7 @@ import reactor.core.publisher.Mono;
 
 @RestController
 public class DemoController {
-    @GetMapping(value = "/demo", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/hello", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<String> demo(){
         return Mono.just("Hello!");
     }
