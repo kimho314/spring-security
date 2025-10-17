@@ -9,6 +9,7 @@ import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -49,5 +50,21 @@ public class HelloControllerTest {
     public void helloAuthenticatedWithMockUserDetails() throws Exception {
         mvc.perform(get("/hello"))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void helloAuthenticatingWithValidUser() throws Exception {
+        mvc.perform(
+                        get("/hello")
+                                .with(httpBasic("john", "12345")))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void helloAuthenticatingWithInvalidUser() throws Exception {
+        mvc.perform(
+                        get("/hello")
+                                .with(httpBasic("mary", "12345")))
+                .andExpect(status().isUnauthorized());
     }
 }
